@@ -1,0 +1,15 @@
+setlocal
+IF EXIST "C:\Program Files\Microsoft Office 15\root\office15\lync.exe" (goto End) else (goto Install)
+:Install
+REM Set DeployServer
+set DeployServer=\\10.120.0.9\skype-setup\
+REM Set ConfigFile
+set ConfigFile=\\10.120.0.9\skype-setup\configuration.xml
+REM Set LogLocation
+set LogLocation=\\10.120.0.9\skype-logs\
+REM Start Install
+echo %date% %time% Setup started. >> %LogLocation%\%computername%.txt
+start /wait %DeployServer%\setup.exe /configure %ConfigFile%
+echo %date% %time% Setup ended with error code %errorlevel%. >> %LogLocation%\%computername%.txt
+:End
+Endlocal
